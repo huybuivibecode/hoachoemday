@@ -644,13 +644,50 @@ main {
   font-weight: 600;
   font-size: clamp(15px, 1.3vw, 17px);
   color: var(--rose-primary);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .letter-signature {
   font-style: italic;
   font-size: 14px;
   color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.letter-author-name {
+  font-family: 'Playfair Display', 'DM Serif Display', Georgia, serif;
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: 0.02em;
+  margin-top: 4px;
+}
+
+/* ---------------- Author Signature Badge ---------------- */
+.author-badge {
+  position: fixed;
+  left: clamp(16px, 3vw, 32px);
+  bottom: clamp(18px, 3vh, 30px);
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--text-muted);
+  box-shadow: 0 4px 18px rgba(120, 50, 80, 0.08);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.author-badge strong {
+  color: var(--rose-primary);
+  font-weight: 600;
 }
 
 .letter-actions {
@@ -749,6 +786,13 @@ main {
     bottom: 20px;
     padding: 11px 18px;
     font-size: 13px;
+  }
+
+  .author-badge {
+    left: 14px;
+    bottom: 22px;
+    padding: 5px 12px;
+    font-size: 11px;
   }
 
   .letter-modal {

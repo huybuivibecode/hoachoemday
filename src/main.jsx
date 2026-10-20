@@ -17,7 +17,8 @@ const LETTER = {
     'Chúc bạn có một ngày 20/10 tràn ngập niềm vui, nhiều tiếng cười và những kỷ niệm đáng nhớ.',
   ],
   closing: 'Chúc mừng Ngày Phụ nữ Việt Nam 20/10.',
-  signature: 'Trân trọng.',
+  signature: 'Trân trọng,',
+  author: 'Bùi Quang Huy',
 }
 
 // Lush SVG Rose illustration
@@ -143,7 +144,7 @@ export default function App() {
   const handleCopyLetter = () => {
     const salutation = recipient ? `Gửi ${recipient} thân thương,\n\n` : `${LETTER.salutation}\n\n`
     const body = LETTER.paragraphs.join('\n\n')
-    const fullText = `${salutation}${body}\n\n${LETTER.closing}\n\n${LETTER.signature}`
+    const fullText = `${salutation}${body}\n\n${LETTER.closing}\n\n${LETTER.signature}\n${LETTER.author}`
 
     if (navigator.clipboard) {
       navigator.clipboard
@@ -353,6 +354,11 @@ export default function App() {
         </motion.button>
       )}
 
+      {/* Author Badge */}
+      <div className="author-badge">
+        <span>Tác giả:</span> <strong>Bùi Quang Huy</strong>
+      </div>
+
       {/* Letter Modal Dialog */}
       <AnimatePresence>
         {isLetterOpen && (
@@ -391,6 +397,7 @@ export default function App() {
               <div className="letter-signoff">
                 <p className="letter-closing-wish">{LETTER.closing}</p>
                 <p className="letter-signature">{LETTER.signature}</p>
+                <p className="letter-author-name">{LETTER.author}</p>
               </div>
 
               <div className="letter-actions">
