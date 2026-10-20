@@ -1,0 +1,758 @@
+/* ========================================================
+   ROSE GARDEN 20/10 — VIETNAMESE WOMEN'S DAY
+   Designed for high performance, accessibility & elegance.
+   ======================================================== */
+
+:root {
+  --rose-primary: #d94b70;
+  --rose-hover: #c4385e;
+  --rose-soft: #fce7ec;
+  --rose-petal: #ee8aa2;
+  --stem-green: #356247;
+  --leaf-green: #487c5b;
+  --gold-accent: #c68a4c;
+  --gold-glow: rgba(224, 166, 94, 0.35);
+  
+  --text-dark: #3f2231;
+  --text-muted: #6e4a5d;
+  --text-soft: #8e687b;
+  
+  --card-bg: rgba(255, 252, 248, 0.94);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --shadow-lux: 0 20px 50px rgba(85, 45, 68, 0.18), 0 4px 12px rgba(85, 45, 68, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color: var(--text-dark);
+  background: #fbf5ef;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---------------- Canvas & Particle Overlay ---------------- */
+.particles-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* ---------------- Top Floating Navigation ---------------- */
+.top-nav {
+  position: fixed;
+  top: 18px;
+  left: 20px;
+  right: 20px;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.top-nav > * {
+  pointer-events: auto;
+}
+
+.date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--rose-primary);
+  box-shadow: 0 4px 18px rgba(120, 50, 80, 0.08);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 18px rgba(120, 50, 80, 0.08);
+}
+
+.nav-btn:hover {
+  background: #ffffff;
+  color: var(--rose-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(120, 50, 80, 0.14);
+}
+
+/* ---------------- Garden Background & Art ---------------- */
+.garden {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #a7e0f2 0%, #d8eff4 45%, #faedd8 100%);
+  transition: background 1.5s ease;
+}
+
+.garden-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.8s cubic-bezier(0.25, 1, 0.5, 1), transform 12s ease-out;
+}
+
+.garden.grown .garden-art {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Floating Clouds */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.65);
+  width: 26vw;
+  height: 7vw;
+  min-width: 160px;
+  min-height: 48px;
+  border-radius: 50%;
+  filter: blur(10px);
+  pointer-events: none;
+  animation: cloudDrift 45s linear infinite alternate;
+}
+
+.cloud:before,
+.cloud:after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud:before {
+  width: 13vw;
+  height: 12vw;
+  min-width: 80px;
+  min-height: 70px;
+  bottom: -2.5vw;
+  left: 4vw;
+}
+
+.cloud:after {
+  width: 16vw;
+  height: 13vw;
+  min-width: 100px;
+  min-height: 80px;
+  bottom: -3vw;
+  right: 3vw;
+}
+
+.c1 {
+  top: 12%;
+  left: 8%;
+  transform: scale(0.85);
+  animation-duration: 55s;
+}
+
+.c2 {
+  top: 24%;
+  right: 10%;
+  transform: scale(1.1);
+  animation-duration: 40s;
+}
+
+@keyframes cloudDrift {
+  0% { transform: translateX(0) scale(1); }
+  100% { transform: translateX(30px) scale(1.04); }
+}
+
+/* Subtle Film Texture */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  z-index: 7;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ---------------- SVG Hero Rose ---------------- */
+.hero-rose-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.garden.grown .hero-rose-svg {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8) translateY(40px);
+}
+
+.hero-rose-container {
+  transform-origin: 500px 520px;
+  animation: gentleSway 6s ease-in-out infinite alternate;
+  cursor: pointer;
+}
+
+@keyframes gentleSway {
+  0% { transform: rotate(-1.5deg); }
+  100% { transform: rotate(1.5deg); }
+}
+
+.rose-aura {
+  fill: radial-gradient(circle, rgba(254, 215, 226, 0.6) 0%, transparent 70%);
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.45; transform: scale(0.95); }
+  100% { opacity: 0.85; transform: scale(1.05); }
+}
+
+.stem {
+  fill: none;
+  stroke: var(--stem-green);
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.leaf {
+  fill: var(--leaf-green);
+  stroke: #234731;
+  stroke-width: 1.2;
+}
+
+.leaf.right {
+  fill: #55936b;
+}
+
+.bloom ellipse {
+  fill: var(--petal, #ee8aa2);
+  stroke: #ab4464;
+  stroke-width: 1.2;
+  transition: transform 0.4s ease;
+}
+
+.bloom ellipse:nth-child(2n) {
+  fill: #f49ab1;
+}
+
+.bloom ellipse:nth-child(3n) {
+  fill: #dd6787;
+}
+
+.rose-disc {
+  fill: #fcd7df;
+  stroke: #c25977;
+  stroke-width: 1;
+}
+
+.rose-swirl {
+  fill: none;
+  stroke: #ab3e5f;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------------- Intro Content Section ---------------- */
+.intro-section {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: clamp(80px, 14vh, 130px);
+  padding-left: 24px;
+  padding-right: 24px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.intro-section > * {
+  pointer-events: auto;
+}
+
+.intro-subtitle {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: var(--rose-primary);
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9);
+}
+
+.intro-title {
+  font-family: 'Playfair Display', 'DM Serif Display', serif;
+  font-size: clamp(34px, 5.2vw, 68px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 14px rgba(255, 255, 255, 0.95);
+}
+
+.intro-desc {
+  font-size: clamp(14px, 1.6vw, 17px);
+  line-height: 1.6;
+  max-width: 520px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.85);
+}
+
+.btn-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 34px;
+  background: linear-gradient(135deg, var(--rose-primary) 0%, #ee6889 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(217, 75, 112, 0.38);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-start:hover {
+  background: linear-gradient(135deg, var(--rose-hover) 0%, var(--rose-primary) 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 34px rgba(217, 75, 112, 0.48);
+}
+
+.btn-start:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* ---------------- Garden Greeting Card ---------------- */
+.garden-content {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: clamp(75px, 11vh, 115px);
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.garden-content > * {
+  pointer-events: auto;
+}
+
+.greeting-card {
+  max-width: 680px;
+  width: 100%;
+  padding: clamp(24px, 4vw, 42px) clamp(22px, 5vw, 48px);
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  box-shadow: var(--shadow-lux);
+  text-align: center;
+}
+
+.greeting-date {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--gold-accent);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.greeting-title {
+  font-family: 'Playfair Display', 'DM Serif Display', Georgia, serif;
+  font-size: clamp(30px, 4.2vw, 54px);
+  font-weight: 700;
+  line-height: 1.18;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.greeting-text {
+  font-size: clamp(14px, 1.4vw, 17px);
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+
+.greeting-en {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(16px, 1.8vw, 21px);
+  color: var(--rose-primary);
+  margin-bottom: 26px;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-action-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background: linear-gradient(135deg, var(--rose-primary) 0%, #ee6889 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(217, 75, 112, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-action-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(217, 75, 112, 0.45);
+}
+
+.btn-action-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text-dark);
+  border: 1px solid rgba(220, 190, 205, 0.7);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-action-secondary:hover {
+  background: #ffffff;
+  border-color: var(--rose-primary);
+  color: var(--rose-primary);
+  transform: translateY(-2px);
+}
+
+/* ---------------- Floating Bottom Corner Button ---------------- */
+.message-floating-btn {
+  position: fixed;
+  right: clamp(18px, 4vw, 36px);
+  bottom: clamp(20px, 4vh, 36px);
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--rose-primary);
+  cursor: pointer;
+  box-shadow: 0 10px 32px rgba(90, 40, 60, 0.16);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.message-floating-btn:hover {
+  background: var(--rose-primary);
+  color: #ffffff;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 38px rgba(217, 75, 112, 0.36);
+}
+
+/* ---------------- Letter Modal Overlay ---------------- */
+.letter-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(45, 20, 32, 0.48);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.letter-modal {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #fffdfa;
+  border-radius: 28px;
+  padding: clamp(32px, 5vw, 44px) clamp(24px, 5vw, 44px);
+  box-shadow: 0 30px 80px rgba(50, 15, 30, 0.32), 0 0 0 1px rgba(225, 180, 195, 0.5);
+  text-align: left;
+}
+
+.letter-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.letter-modal::-webkit-scrollbar-thumb {
+  background: rgba(217, 75, 112, 0.25);
+  border-radius: 999px;
+}
+
+.letter-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: rgba(240, 220, 228, 0.45);
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 5;
+}
+
+.letter-close-btn:hover {
+  background: var(--rose-soft);
+  color: var(--rose-primary);
+  transform: rotate(90deg);
+}
+
+.letter-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(220, 170, 190, 0.5);
+}
+
+.letter-seal {
+  font-size: 26px;
+  display: inline-block;
+  filter: drop-shadow(0 2px 6px rgba(217, 75, 112, 0.3));
+}
+
+.letter-salutation {
+  font-family: 'Playfair Display', 'DM Serif Display', Georgia, serif;
+  font-size: clamp(20px, 2.5vw, 25px);
+  font-weight: 700;
+  color: var(--rose-primary);
+  letter-spacing: -0.01em;
+}
+
+.letter-content {
+  margin-bottom: 18px;
+}
+
+.letter-paragraph {
+  font-size: clamp(14px, 1.2vw, 15.5px);
+  line-height: 1.85;
+  color: #3b2230;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.letter-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.letter-signoff {
+  margin-top: 22px;
+  margin-bottom: 24px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(220, 170, 190, 0.4);
+  text-align: right;
+}
+
+.letter-closing-wish {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(15px, 1.3vw, 17px);
+  color: var(--rose-primary);
+  margin-bottom: 4px;
+}
+
+.letter-signature {
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.letter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-letter-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: var(--rose-soft);
+  color: var(--rose-primary);
+  border: 1px solid rgba(230, 160, 180, 0.4);
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-letter-copy:hover {
+  background: var(--rose-primary);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ---------------- Toast Notification ---------------- */
+.toast-notice {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  padding: 10px 22px;
+  background: rgba(40, 20, 30, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+/* ---------------- Responsive Fine-Tuning ---------------- */
+@media (max-width: 650px) {
+  .top-nav {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .date-badge {
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+
+  .nav-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .intro-section {
+    padding-top: 15vh;
+  }
+
+  .intro-title {
+    font-size: 32px;
+  }
+
+  .intro-desc {
+    font-size: 14px;
+  }
+
+  .garden-content {
+    padding-top: 12vh;
+  }
+
+  .greeting-card {
+    border-radius: 22px;
+    padding: 24px 18px;
+  }
+
+  .greeting-title {
+    font-size: 28px;
+  }
+
+  .message-floating-btn {
+    right: 16px;
+    bottom: 20px;
+    padding: 11px 18px;
+    font-size: 13px;
+  }
+
+  .letter-modal {
+    padding: 30px 18px 24px;
+    border-radius: 22px;
+  }
+}
